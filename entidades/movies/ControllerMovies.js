@@ -13,16 +13,16 @@ const crearPelicula = async (req, res) => {
     }
 }
 
-
-
-
-
 const listaPeliculas = async (req, res) => {
     // como enseño mi objeto
-    // const pelicula = await Pelicula.find({titulo: req.query.titulo})
-    const pelicula = await Pelicula.find()
-    console.log(pelicula)
-    res.json(pelicula)
+    if (req.query.titulo) {
+        const pelicula = await Pelicula.find({titulo: req.query.titulo}) 
+        console.log(pelicula)
+        res.json(pelicula)
+    }
+   else {
+        res.json(await Pelicula.find())
+    }
 }
 
 
