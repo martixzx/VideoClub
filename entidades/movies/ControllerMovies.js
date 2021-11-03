@@ -1,4 +1,5 @@
 const express = require('express');
+const { findOne } = require('./ModuleMovies.js');
 const Pelicula = require('./ModuleMovies.js')
 
 const crearPelicula = async (req, res) => {
@@ -13,7 +14,39 @@ const crearPelicula = async (req, res) => {
 }
 
 
+
+
+
+const listaPeliculas = async (req, res) => {
+    // como enseño mi objeto
+    // const pelicula = await Pelicula.find({titulo: req.query.titulo})
+    const pelicula = await Pelicula.find()
+    console.log(pelicula)
+    res.json(pelicula)
+}
+
+
+
+const eliminarPelicula = async (req, res) => {
+    //borrar películas
+        
+        const pelicula = req.params.id;
+        const movie = await Pelicula.findById(pelicula);
+        await Pelicula.deleteOne(movie);
+        res.json('Eliminado');
+    }
+    
+
+
 /**
+ * ¿que le estoy pidiendo al servidor que me devuelva?
+ * query
+ * perams
+ * 
+ * ¿que le estoy enviadon al servidor que me devuelva
+ * body
+ * header
+ * 
  * busqueda todas peliculas
  * busqueda por id
  * modificar 
@@ -21,5 +54,7 @@ const crearPelicula = async (req, res) => {
  */
 
 module.exports = {
-    crearPelicula
+    crearPelicula, 
+    eliminarPelicula,
+    listaPeliculas
 };
